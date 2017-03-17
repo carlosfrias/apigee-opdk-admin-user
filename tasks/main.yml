@@ -1,0 +1,18 @@
+---
+# tasks file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-admin-user
+- name: Copy local public keys to server for user {{ user }}
+  authorized_key:
+    user: '{{ user }}'
+    state: present
+    key: "{{ lookup('file', '{{ pubkey }}') }}"
+
+- name: Permit root login over SSH
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '(^#)(PermitRootLogin yes)'
+    line: '\2'
+    backrefs: yes
+  notify:
+  - Restart SSH service
+  when: user == 'root'

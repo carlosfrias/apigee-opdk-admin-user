@@ -1,0 +1,3 @@
+---
+# defaults file for /usr/local/google/home/friasc/apigee-workspace/apigee-opdk-role-workspace/apigee-opdk-admin-user
+pubkey: '~/.ssh/id_rsa.pub'
