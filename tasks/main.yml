@@ -15,4 +15,3 @@
     backrefs: yes
   notify:
   - Restart SSH service
-  when: user == 'root'
