@@ -6,6 +6,13 @@
 #    state: present
 #    key: "{{ lookup('file', '{{ pubkey }}') }}"
 
+- name: Update user with NOPASSWD
+  lineinfile:
+    state: present
+    line: "{{ user }} ALL = NOPASSWD : ALL"
+    path: /etc/sudoers
+    validate: '/usr/sbin/visudo -cf %s'
+
 - name: Permit root login over SSH
   lineinfile:
     state: present
@@ -13,5 +20,6 @@
     regexp: '(^#)(PermitRootLogin yes)'
     line: '\2'
     backrefs: yes
+  when: permit_root_login | default(yes)
   notify:
   - Restart SSH service
