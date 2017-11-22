@@ -20,6 +20,6 @@
     regexp: '(^#)(PermitRootLogin yes)'
     line: '\2'
     backrefs: yes
-  when: permit_root_login | default(yes)
+  when: permit_root_login | default(False)
   notify:
   - Restart SSH service
