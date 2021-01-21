@@ -4,6 +4,10 @@
   set_fact:
     user: "{{ user | default('apigee') }}"
 
+- name: Remove the old key(s) from known_hosts
+  shell: ssh-keygen -R {{ ansible_host }}
+  delegate_to: 127.0.0.1
+
 - name: Copy local public keys to server for user {{ user }}
   become: yes
   authorized_key:
